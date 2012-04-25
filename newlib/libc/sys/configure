@@ -792,6 +792,7 @@ decstation
 h8300hms
 h8500hms
 linux
+lv2
 m88kbug
 mmixware
 netware
@@ -11799,6 +11800,8 @@ subdirs="$subdirs a29khif"
 	h8500hms) subdirs="$subdirs h8500hms"
  ;;
 	linux) subdirs="$subdirs linux"
+ ;;
+	lv2) subdirs="$subdirs lv2"
  ;;
 	m88kbug) subdirs="$subdirs m88kbug"
  ;;
