@@ -53,7 +53,8 @@ ARFLAGS = cru
 lib_a_AR = $(AR) $(ARFLAGS)
 lib_a_LIBADD =
 am_lib_a_OBJECTS = lib_a-getreent.$(OBJEXT) lib_a-lock.$(OBJEXT) \
-				   lib_a-lock_recursive.$(OBJEXT) lib_a-lock_internal.$(OBJEXT)
+				   lib_a-lock_recursive.$(OBJEXT) lib_a-lock_internal.$(OBJEXT) \
+				   lib_a-realpath.$(OBJEXT)
 lib_a_OBJECTS = $(am_lib_a_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp =
@@ -170,7 +171,7 @@ AUTOMAKE_OPTIONS = cygnus
 INCLUDES = $(NEWLIB_CFLAGS) $(CROSS_CFLAGS) $(TARGET_CFLAGS)
 AM_CCASFLAGS = $(INCLUDES)
 noinst_LIBRARIES = lib.a
-lib_a_SOURCES = getreent.c lock.c lock_recursive.c lock_internal.c
+lib_a_SOURCES = getreent.c lock.c lock_recursive.c lock_internal.c realpath.c
 lib_a_CCASFLAGS = $(AM_CCASFLAGS)
 lib_a_CFLAGS = $(AM_CFLAGS)
 ACLOCAL_AMFLAGS = -I ../../.. -I ../../../..
@@ -256,6 +257,12 @@ lib_a-lock_internal.o: lock_internal.c
 
 lib_a-lock_internal.obj: lock_internal.c
 	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lib_a_CFLAGS) $(CFLAGS) -c -o lib_a-lock_internal.obj `if test -f 'lock_internal.c'; then $(CYGPATH_W) 'lock_internal.c'; else $(CYGPATH_W) '$(srcdir)/lock_internal.c'; fi`
+
+lib_a-realpath.o: realpath.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lib_a_CFLAGS) $(CFLAGS) -c -o lib_a-realpath.o `test -f 'realpath.c' || echo '$(srcdir)/'`realpath.c
+
+lib_a-realpath.obj: realpath.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lib_a_CFLAGS) $(CFLAGS) -c -o lib_a-realpath.obj `if test -f 'realpath.c'; then $(CYGPATH_W) 'realpath.c'; else $(CYGPATH_W) '$(srcdir)/realpath.c'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \
