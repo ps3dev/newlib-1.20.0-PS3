@@ -201,6 +201,10 @@ int	_EXFUN(_unsetenv_r,(struct _reent *, const char *__string));
 int _EXFUN(posix_memalign,(void **, size_t, size_t));
 #endif
 
+#ifdef __lv2ppu__
+char* _EXFUN(realpath,(const char *__p, char *__rp));
+#endif
+
 #endif /* ! __STRICT_ANSI__ */
 
 char *	_EXFUN(_dtoa_r,(struct _reent *, double, int, int, int *, int*, char**));
