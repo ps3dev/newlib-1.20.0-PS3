@@ -1,6 +1,8 @@
 #ifndef _SYS_RESOURCE_H_
 #define _SYS_RESOURCE_H_
 
+
+#include <_ansi.h>
 #include <sys/time.h>
 
 #define	RUSAGE_SELF	0		/* calling process */
@@ -10,6 +12,10 @@ struct rusage {
   	struct timeval ru_utime;	/* user time used */
 	struct timeval ru_stime;	/* system time used */
 };
+
+
+int	_EXFUN(getrusage, (int, struct rusage *));
+
 
 #endif
 

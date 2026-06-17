@@ -36,7 +36,10 @@ POSSIBILITY OF SUCH DAMAGE.
 long double
 modfl (long double x, long double *iptr)
 {
-  return modf(x, iptr);
+
+/* taken from https://github.com/bminor/newlib/blob/eb6c6edc32f86bcccc23c2e9aef471e8a015ad75/newlib/libm/common/modfl.c#L39 */
+  return modf(x, (double *)iptr);
+
 }
 #endif
 

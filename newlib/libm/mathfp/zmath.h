@@ -37,6 +37,11 @@ extern ufloat  z_infinity_f;
 extern ufloat  z_notanum_f;
 extern float   z_rooteps_f;
 
+
+int _EXFUN (isposf, (float));
+int _EXFUN (ispos, (double));
+
+
 /* Core math routines. */
 
 int    _EXFUN (numtest, (double));

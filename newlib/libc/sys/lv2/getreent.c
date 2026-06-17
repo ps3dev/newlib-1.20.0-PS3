@@ -1,4 +1,6 @@
 #include <reent.h>
+#include <string.h>
+
 
 static __thread struct _reent t_reent;
 static __thread struct _reent *t_reentp = 0;
