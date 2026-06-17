@@ -21,6 +21,8 @@ exec_prefix = @exec_prefix@
 
 host_alias = @host_alias@
 target_alias = @target_alias@
+target=@target@
+
 program_transform_name = @program_transform_name@
 
 bindir = @bindir@
@@ -77,6 +79,8 @@ OUTPUTS = libgloss.a $(CRTOBJS)
 
 NEWLIB_CFLAGS = `if [ -d ${objroot}/newlib ]; then echo -I${objroot}/newlib/targ-include -I${srcroot}/newlib/libc/include; fi` -ffunction-sections -fdata-sections
 NEWLIB_LDFLAGS = `if [ -d ${objroot}/newlib ]; then echo -B${objroot}/newlib/ -L${objroot}/newlib/; fi`
+
+NEWLIB_CFLAGS += `case "$(target)" in *-ps3toolchain-elf*|*-celloslv2-elf*) echo -DCELLOSLV2_SPU ;; esac`
 
 INCLUDES = -I. -I$(srcdir)/..
 

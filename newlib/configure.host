@@ -147,11 +147,11 @@ case "${host_cpu}" in
   i[34567]86)
 	# Don't use for these since they provide their own setjmp.
 	case ${host} in
-	*-*-sco* | *-*-cygwin*) 
+	*-*-sco* | *-*-cygwin*)
 		libm_machine_dir=i386
 		machine_dir=i386
 		;;
-	*) 
+	*)
 		libm_machine_dir=i386
 		machine_dir=i386
 		mach_add_setjmp=true
@@ -180,7 +180,7 @@ case "${host_cpu}" in
 	newlib_cflags="-DPREFER_SIZE_OVER_SPEED -Os -mrelax"
 	CFLAGS="-g -Os"
 	;;
-  
+
   m68*)
 	machine_dir=m68k
 	newlib_cflags="${newlib_cflags} -DCOMPACT_CTYPE"
@@ -419,7 +419,7 @@ case "${host}" in
 	unix_dir=unix
 	posix_dir=posix
 	crt1=crt1.o
-	crt1_dir=libc/sys/${sys_dir}	
+	crt1_dir=libc/sys/${sys_dir}
 	gcc_dir=`gcc -print-search-dirs | awk '/^install:/{print $2}'`
 	default_newlib_io_c99_formats="yes"
 	default_newlib_io_long_double="yes"
@@ -437,7 +437,7 @@ case "${host}" in
 	##newlib_cflags="${newlib_cflags} -I`newlib-flags --kernel-dir`/include"
 	##newlib_cflags="${newlib_cflags} -idirafter ${gcc_dir}include"
 	;;
-  *-ps3-*)
+  powerpc*-ps3toolchain-elf*|powerpc*-ps3-elf*)
 	sys_dir=lv2
 	have_crt0="no"
 	;;
@@ -483,6 +483,13 @@ case "${host}" in
   spu-*-*)
 	default_newlib_io_long_long="yes"
 	default_newlib_atexit_dynamic_alloc="no"
+	case "${host}" in
+	  *-ps3toolchain-elf*|*-celloslv2-elf*)
+        newlib_cflags="${newlib_cflags} -DCELLOSLV2_SPU"
+	    ;;
+	  *)
+        ;;
+	esac
 	;;
   tic6x*)
 	newlib_cflags="${newlib_cflags} -DMISSING_SYSCALL_NAMES"
@@ -539,7 +546,7 @@ case "${host}" in
 	default_newlib_io_c99_formats="yes"
 	newlib_cflags="${newlib_cflags} -D_COMPILING_NEWLIB"
 	newlib_cflags="${newlib_cflags} -DMALLOC_PROVIDED -DEXIT_PROVIDED -DSIGNAL_PROVIDED -DREENTRANT_SYSCALLS_PROVIDED -DHAVE_NANOSLEEP -DHAVE_BLKSIZE -DHAVE_FCNTL -DHAVE_ASSERT_FUNC"
-        # turn off unsupported items in posix directory 
+        # turn off unsupported items in posix directory
 	newlib_cflags="${newlib_cflags} -D_NO_GETLOGIN -D_NO_GETPWENT -D_NO_GETUT -D_NO_GETPASS -D_NO_SIGSET -D_NO_WORDEXP -D_NO_POPEN"
 	;;
 # VxWorks supplies its own version of malloc, and the newlib one
@@ -613,17 +620,17 @@ case "${host}" in
 	default_newlib_io_long_long="yes"
         ;;
   h8300*-*-*)
-	syscall_dir=syscalls	
+	syscall_dir=syscalls
 	default_newlib_io_long_long="yes"
 	newlib_cflags="${newlib_cflags} -DSMALL_DTOA -DSMALL_MEMORY"
 	# Simulator only extensions for H8300.
 	# Uncomment the next line to enable them.
 	# newlib_cflags="${newlib_cflags} -D__SIMULATOR__"
-	;;	
+	;;
   h8500-*-*)
-	syscall_dir=syscalls	
+	syscall_dir=syscalls
 	newlib_cflags="${newlib_cflags} -DSMALL_DTOA -DSMALL_MEMORY"
-	;;	
+	;;
   i[34567]86-*-sco*)
 	newlib_cflags="${newlib_cflags} -DSIGNAL_PROVIDED -DHAVE_FCNTL"
 	;;
@@ -685,7 +692,7 @@ case "${host}" in
         syscall_dir=syscalls
 	default_newlib_io_long_long="yes"
         ;;
-  powerpc64-ps3-elf)
+  powerpc*-ps3toolchain-elf*|powerpc*-ps3-elf*)
 	default_newlib_io_long_long="yes"
 	newlib_cflags="${newlib_cflags} -DREENTRANT_SYSCALLS_PROVIDED"
 	newlib_cflags="${newlib_cflags} -ffunction-sections -fdata-sections"
@@ -741,7 +748,7 @@ case "${host}" in
 	syscall_dir=syscalls
 	;;
   w65-*-*)
-	syscall_dir=syscalls	
+	syscall_dir=syscalls
 	newlib_cflags="${newlib_cflags} -DSMALL_DTOA -DSMALL_MEMORY"
 	;;
   xc16x-*)
@@ -792,7 +799,7 @@ fi
 # Disable atexit dynamic allocation if requested.
 if [ "x${newlib_atexit_dynamic_alloc}" = "x" ]; then
 	if [ ${default_newlib_atexit_dynamic_alloc} = "yes" ]; then
-		newlib_atexit_dynamic_alloc="yes"; 
+		newlib_atexit_dynamic_alloc="yes";
 	fi
 fi
 

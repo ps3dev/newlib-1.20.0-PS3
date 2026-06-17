@@ -57,8 +57,10 @@ POSSIBILITY OF SUCH DAMAGE.
 .type _start, @function
 	
 _start:
+#ifndef CELLOSLV2_SPU
 	/* Save the local store base from $6.  */
 	stqr $6, __ea_local_store
+#endif
 
 #ifdef _STD_MAIN
 	/* 
